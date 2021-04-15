@@ -13,12 +13,13 @@ var idNum = 1;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(express.static('public'));
 // Basic routes
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../../index.html')));
-app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '../../notes.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
+
+app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, './public/notes.html')));
 app.get('/api/notes', (req, res) => {
-    fs.readFileSync(path.join(__dirname, '../../../db/db.json'));
+    fs.readFileSync(path.join(__dirname, '/db/db.json'));
     console.log("fs");
 });
 
@@ -33,6 +34,7 @@ app.post('/api/notes', (req, res) => {
   
     db.json.push(newNote);
     res.json(newNote);
+    idNum++;
   });
 
 // Starts the server to begin listening
