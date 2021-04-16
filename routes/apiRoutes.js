@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const fs = require('fs');
 const { v4: uuidv4 } = require("uuid");
-const notes = require('../db/db.json');
+let notes = require('../db/db.json');
 
 // reads the notes from the json file
 router.get('/notes', (req, res) => res.json(notes));
@@ -21,7 +21,8 @@ router.delete('/notes/:id', (req, res) => {
     console.log(delID);
     var newNotes = notes.filter(note => note.id !== delID);
     writeToFile(newNotes);
-    res.json(newNotes);
+    notes = newNotes;
+    res.json(notes);
 });
 
 // rewrites the db.json file with the new data
