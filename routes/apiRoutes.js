@@ -18,7 +18,6 @@ router.post('/notes', (req, res) => {
 // deletes notes
 router.delete('/notes/:id', (req, res) => {
     const delID = req.params.id;
-    console.log(delID);
     var newNotes = notes.filter(note => note.id !== delID);
     writeToFile(newNotes);
     notes = newNotes;

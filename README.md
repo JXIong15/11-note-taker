@@ -1,116 +1,113 @@
 # 11 Express.js: Note Taker
 
-## Your Task
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Your assignment is to modify starter code to create an application called Note Taker that can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
+## TO DO:
+* Heroku: deploy and include links
+* functionality, tasks-completed, demos
+* assets
+* Submit to BCS with links
 
-The application’s front end has already been created. It's your job to build the back end, connect the two, and then deploy the entire application to Heroku.
-
-
-## User Story
-
-```
-AS A small business owner
-I WANT to be able to write and save notes
-SO THAT I can organize my thoughts and keep track of tasks I need to complete
-```
-
-
-## Acceptance Criteria
-
-```
-GIVEN a note-taking application
-WHEN I open the Note Taker
-THEN I am presented with a landing page with a link to a notes page
-WHEN I click on the link to the notes page
-THEN I am presented with a page with existing notes listed in the left-hand column, plus empty fields to enter a new note title and the note’s text in the right-hand column
-WHEN I enter a new note title and the note’s text
-THEN a Save icon appears in the navigation at the top of the page
-WHEN I click on the Save icon
-THEN the new note I have entered is saved and appears in the left-hand column with the other existing notes
-WHEN I click on an existing note in the list in the left-hand column
-THEN that note appears in the right-hand column
-WHEN I click on the Write icon in the navigation at the top of the page
-THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column
-```
+## Table of Contents
+* [Introduction](#introduction)
+* [Functionality](#functionality)
+* [Tasks Completed](#tasks-completed)
+* [Technologies Used](#technologies-used)
+* [Installations](#installations)
+* [Demos](#demos)
+* [Sources](#sources)
+* [License](#license)
 
 
-## Mock-Up
+ ## Introduction
+ Uses Node, Express, and UUID to generate a Note Taking application. Users can create, save, and delete notes.
+ * GitHub Repository: https://github.com/JXIong15/11-note-taker
+ * Link to Heroku App: 
 
-The following images show the web application's appearance and functionality: 
-
-![Existing notes are listed in the left-hand column with empty fields on the right-hand side for the new note’s title and text.](./Assets/11-express-homework-demo-01.png)
-
-![Note titled “Balance accounts” reads, “Balance account books by end of day Monday,” with other notes listed on the left.](./Assets/11-express-homework-demo-02.png)
-
-
-## Getting Started
-
-The application should have a `db.json` file on the back end that will be used to store and retrieve notes using the `fs` module.
+<p align="center"><img src="./assets/notes.png" width="80%" stylealt="html desktop"/></p>
 
 
-The following API routes should be created:
-
-* `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
-
-* `POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into `npm` packages that could do this for you).
-
-
-## Bonus
-
-You haven’t learned how to handle DELETE requests, but this application has that functionality in the front end. As a bonus, see if you can add the DELETE route to the application using the following guideline:
-
-* `DELETE /api/notes/:id` should receive a query parameter containing the id of a note to delete. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
-
-
-## Grading Requirements
-
-This homework is graded based on the following criteria: 
+## Functionality
+* When the user types "node index.js" in the "/10-employee" directory, then the program is initiated.
+* The user, who is the manager, is then asked a series of questions about themself: name, email, id, and office number.
+* The manager is then asked if they want to add more employees.
+  * If "No", then the program generates an HTML doc containing the Manger's employee card
+  * If "Yes", then the program asks the manager if they want to add an Intern or an Engineer
+* When an Engineer is selected, the app asks for the Engineer's name, email, id, and GitHub username.
+* When an Intern is selected, the app asks for the Intern's name, email, id, and school name.
+* The manager is continuously prompted after each employee so that they can add their whole team. 
+  * The moment the Manager chooses, "No" to adding more employees, then the HTML document
+  containing each team member's employee card is generated from the generateEmployeeCards.js file.
+* For each employee and employee role, a class.js and questions.js file was created.
 
 
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria plus the following:
-
-  * Application front end must connect to an Express.js back end.
-
-  * Application back end must store notes with unique IDs in a JSON file.
-
-  * Application must be deployed to Heroku.
-
-
-### Deployment: 36%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository contains application code.
-
-
-### Application Quality: 11%
-
-* Application console is free of errors.
+## Tasks Completed
+* In the 10-employee directory, downloaded the inquirer and jest packages using npm.
+* Created a "library", "tests", and a "questions" directories. Each one contains an Engineer, Manager, and Intern file. Libary and _tests_ both have an Employee file as well.
+  * Each Questions.js file contains questions for each role
+  * Each role in the "library" contains constructor classes
+  * Each test.js file contains tests for the constructor classes for each role
+* In the index.js file:
+	* included all of the required packages and other js files needed
+	* created an empty array to hold the team members
+  * created a function to run when initiated by the user. This function prompts for the Manager's information.
+    * addMore() function is created to give the Manager the option to add more team members.
+    * if more team members are desired, then an employeeRole() function prompts the Manager to choose the employee role and then asks the questions pertaining to the employee's information
+      * created functions for 'intern' and 'engineer' questions respectively
+        * all Manager, Engineer, and Intern question functions use their respective role constructors to create the new employee for that role
+    * once the manager decides not to add more employees, then a writeToFile() function creates an HTML document by passing the 'team' array into the generateEmployeeCards() function
+* in the generateEmployeeCards.js file, which is prompted by the index.js generateEmpployeeCards() function:
+  * the generateEmployeeCards(team) function uses a forEach loop to iterate through each employee in the 'team' array
+    * the empployee is then passed into a makeCard() function, which creates and returns an employee card for them
+      * an iconRole() function returns the employee role to generate the correct icon for the employee
+      * a lastQ() function uses the employee role to return the unique information for the role
+    * the generateEmployeeCards() function returns a Template Literal containing the code for the HTML file. 
+      * This code is returned to the writeToFile() function in the index.js file, which then genereates an HTML file with the code.
+* once the HTML file is generated, the application closes. The user can then click on the HTML file and open it to see the different cards for their employee(s).
 
 
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality README file with description, screenshot, and link to deployed application.
+## Installations
+* Download [Node and npm](https://coding-boot-camp.github.io/full-stack/nodejs/how-to-install-nodejs)
+* Then, download the UUID Package by typing, "npm install uuid" in command line
+* Then, download the express package by typing, "npm install express" in the command line
 
 
-### Bonus: +10 Points
+## Technologies Used
+* JavaScript (main code)
+* HTML
+* Node
+  * UUID to generate random unique IDs for each note
+  * Express to use a server and URL routes
+* Txt File (License)
+* JSON file to store the array of notes
 
-* Application allows users to delete notes.
+
+## Demos
+App Demo: https://drive.google.com/file/d/1aIvexVPLv0fNYhxhRUbo314YsrOxEjaT/view
+
+[HTML Demo](https://drive.google.com/file/d/1ybL3uqKS64OgW7tM9ZE1uXvXf5EliXBA/view):
+   <p align="center"><img src="./assets/html-demo.gif" width="100% height="100%" stylealt="html demo"/></p>
+
+[Test Demo](https://drive.google.com/file/d/1uyzILccmIV30b2TPJxF5O80SlY-bFXh7/view):
+   <p align="center"><img src="./assets/test-demo.gif" stylealt="test demo"/></p>
+
+
+
+## Sources
+* UUID Package: https://www.npmjs.com/package/uuid
+* Express Package: https://www.npmjs.com/package/express
+
+
+## License
+Licensed under the [MIT License](LICENSE).
+
+<p align="center">© 2021 Jou Xiong, Trilogy, Northwestern Coding Bootcamp</p>
+
+
+
+
+
+
 
 
 ## Review
@@ -125,8 +122,3 @@ You are required to submit BOTH of the following for review:
 © 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
 
 
-
-installations
-uuid (random id generator)
-node
-express
