@@ -11,15 +11,27 @@ router.post('/notes', (req, res) => {
     const newNote = req.body;
     newNote.id = uuidv4();
     notes.push(newNote);
-     
+    writeToFile(notes);
+    res.json(notes);
+});
+
+// deletes notes
+router.delete('/notes/:id', (req, res) => {
+    const delID = req.params.id;
+    console.log(delID);
+    var newNotes = notes.filter(note => note.id !== delID);
+    writeToFile(newNotes);
+    res.json(newNotes);
+});
+
+// rewrites the db.json file with the new data
+function writeToFile(data) {
     try {
-        fs.writeFileSync("./db/db.json", JSON.stringify(notes));
+        return fs.writeFileSync("./db/db.json", JSON.stringify(data));
     }
     catch {
         return "db.json failed."
     }
-
-    res.json(notes);
-});
+}
 
 module.exports = router;
