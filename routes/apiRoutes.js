@@ -30,7 +30,7 @@ function writeToFile(data) {
         return fs.writeFileSync("./db/db.json", JSON.stringify(data));
     }
     catch {
-        return "db.json failed."
+        return console.log("db.json failed.");
     }
 }
 
