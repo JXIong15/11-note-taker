@@ -13,7 +13,6 @@ router.post('/notes', (req, res) => {
     notes.push(newNote);
     writeToFile(notes);
     res.json(notes);
-    // res.redirect("/notes");
 });
 
 // deletes notes
