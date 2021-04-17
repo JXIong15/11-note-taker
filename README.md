@@ -7,6 +7,7 @@
 * functionality, tasks-completed, demos
 * assets
 * Submit to BCS with links
+* when viewing a saved note and then clicking on pencil icon, can't make new note.
 
 ## Table of Contents
 * [Introduction](#introduction)
