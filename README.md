@@ -2,12 +2,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## TO DO:
-* Heroku: deploy and include links
-* functionality, tasks-completed, demos
-* assets
-* Submit to BCS with links
-* when viewing a saved note and then clicking on pencil icon, can't make new note.
 
 ## Table of Contents
 * [Introduction](#introduction)
@@ -17,60 +11,53 @@
 * [Installations](#installations)
 * [Demos](#demos)
 * [Sources](#sources)
+* [Known Bug](#known-bug)
 * [License](#license)
 
 
  ## Introduction
- Uses Node, Express, and UUID to generate a Note Taking application. Users can create, save, and delete notes.
+ Uses Node, Express, and UUID to generate a Note Taking application. Users can create, save, and delete notes. The application is deployed on a Heroku live server.
  * GitHub Repository: https://github.com/JXIong15/11-note-taker
- * Link to Heroku App: 
+ * Link to Heroku App: https://fierce-beach-80852.herokuapp.com/
 
-<p align="center"><img src="./assets/notes.png" width="80%" stylealt="html desktop"/></p>
+<p align="center"><img src="./assets/homepage.png" width="80%" stylealt="home page"/></p>
 
 
 ## Functionality
-* When the user types "node index.js" in the "/10-employee" directory, then the program is initiated.
-* The user, who is the manager, is then asked a series of questions about themself: name, email, id, and office number.
-* The manager is then asked if they want to add more employees.
-  * If "No", then the program generates an HTML doc containing the Manger's employee card
-  * If "Yes", then the program asks the manager if they want to add an Intern or an Engineer
-* When an Engineer is selected, the app asks for the Engineer's name, email, id, and GitHub username.
-* When an Intern is selected, the app asks for the Intern's name, email, id, and school name.
-* The manager is continuously prompted after each employee so that they can add their whole team. 
-  * The moment the Manager chooses, "No" to adding more employees, then the HTML document
-  containing each team member's employee card is generated from the generateEmployeeCards.js file.
-* For each employee and employee role, a class.js and questions.js file was created.
+* When the user navigates to the home page, they can click on the sole "Get Started" button, which will take them to the note-taking page.
+* By clicking on the "Note Taker" in white font in the upper left corner, the user is brought back to the home page.
+* On the Notes page, saved notes are on the left-hand column. Clicking on the Title of the saved note displays the note's contents.
+* Clicking on the red trash icon deletes the note.
+* Clicking on the write pen icon in the top right corner allows the user to write a new note.
+* When the user types in a title and note test, a white save disc icon appears next to the pen.
+  * Clicking on the save icon saves the note to be displayed on the left hand column, and it clears the note-typing area for the user to write a new note.
 
 
 ## Tasks Completed
-* In the 10-employee directory, downloaded the inquirer and jest packages using npm.
-* Created a "library", "tests", and a "questions" directories. Each one contains an Engineer, Manager, and Intern file. Libary and _tests_ both have an Employee file as well.
-  * Each Questions.js file contains questions for each role
-  * Each role in the "library" contains constructor classes
-  * Each test.js file contains tests for the constructor classes for each role
-* In the index.js file:
-	* included all of the required packages and other js files needed
-	* created an empty array to hold the team members
-  * created a function to run when initiated by the user. This function prompts for the Manager's information.
-    * addMore() function is created to give the Manager the option to add more team members.
-    * if more team members are desired, then an employeeRole() function prompts the Manager to choose the employee role and then asks the questions pertaining to the employee's information
-      * created functions for 'intern' and 'engineer' questions respectively
-        * all Manager, Engineer, and Intern question functions use their respective role constructors to create the new employee for that role
-    * once the manager decides not to add more employees, then a writeToFile() function creates an HTML document by passing the 'team' array into the generateEmployeeCards() function
-* in the generateEmployeeCards.js file, which is prompted by the index.js generateEmpployeeCards() function:
-  * the generateEmployeeCards(team) function uses a forEach loop to iterate through each employee in the 'team' array
-    * the empployee is then passed into a makeCard() function, which creates and returns an employee card for them
-      * an iconRole() function returns the employee role to generate the correct icon for the employee
-      * a lastQ() function uses the employee role to return the unique information for the role
-    * the generateEmployeeCards() function returns a Template Literal containing the code for the HTML file. 
-      * This code is returned to the writeToFile() function in the index.js file, which then genereates an HTML file with the code.
-* once the HTML file is generated, the application closes. The user can then click on the HTML file and open it to see the different cards for their employee(s).
+* Downloaded all dependencies needed: Express, Node, UUID.
+* Created a server.js file to connect the front and back-end of the app.
+* In the server.js file, set up the port, server, and API routes
+* In the htmlRoutes.js file, created a path to route to the notes page.
+  * created a path for Heroku to route to the homepage.
+* In the apiRoutes.js file, which uses the "/notes" page:
+  * used a GET command to display current saved notes from the db.json file
+  * used a POST command to save the Title and Text of the new note to a newNote object.
+    * used a UUID to create a unique ID, which is then assigned to the object's ID
+    * pushes/adds this newNote to the db.json file's array, and the Saved column is updated to reflect the new note
+  * used a DELETE command to call upon the ID of the note to be deleted (delID)
+    * creates a new array of newNotes without the note with the delID
+    * Saved Notes on the left column display the current notes once the deleted note is removed from the array
+  * used fs to rewrite the db.json file with the new array for the POST and DELETE commands
+
+
+<p align="center"><img src="./assets/notes.png" width="80%" stylealt="notes page"/></p>
 
 
 ## Installations
 * Download [Node and npm](https://coding-boot-camp.github.io/full-stack/nodejs/how-to-install-nodejs)
 * Then, download the UUID Package by typing, "npm install uuid" in command line
 * Then, download the express package by typing, "npm install express" in the command line
+* Download [Heroku](https://devcenter.heroku.com/categories/command-line)
 
 
 ## Technologies Used
@@ -81,17 +68,11 @@
   * Express to use a server and URL routes
 * Txt File (License)
 * JSON file to store the array of notes
+* Heroku to deploy the live application
 
 
 ## Demos
-App Demo: https://drive.google.com/file/d/1aIvexVPLv0fNYhxhRUbo314YsrOxEjaT/view
-
-[HTML Demo](https://drive.google.com/file/d/1ybL3uqKS64OgW7tM9ZE1uXvXf5EliXBA/view):
-   <p align="center"><img src="./assets/html-demo.gif" width="100% height="100%" stylealt="html demo"/></p>
-
-[Test Demo](https://drive.google.com/file/d/1uyzILccmIV30b2TPJxF5O80SlY-bFXh7/view):
-   <p align="center"><img src="./assets/test-demo.gif" stylealt="test demo"/></p>
-
+   <p align="center"><img src="./assets/demo.gif" width="100% height="100%" stylealt="demo"/></p>
 
 
 ## Sources
@@ -99,27 +80,11 @@ App Demo: https://drive.google.com/file/d/1aIvexVPLv0fNYhxhRUbo314YsrOxEjaT/view
 * Express Package: https://www.npmjs.com/package/express
 
 
+## Known Bug
+* After viewing a saved note, the user can click on the "pen" icon to write a new note. However, they are unable to write a new note after immediately viewing a saved note. The way to combat this is to refresh the page because all saved notes are saved to the local storage.
+
+
 ## License
 Licensed under the [MIT License](LICENSE).
 
 <p align="center">© 2021 Jou Xiong, Trilogy, Northwestern Coding Bootcamp</p>
-
-
-
-
-
-
-
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
-
-- - -
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
-
-
